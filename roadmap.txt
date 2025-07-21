@@ -1,0 +1,41 @@
+My Scheduler:
+
+Golang:
+    - Go concurrency (goroutines, channels)
+    - os/exec
+    - JSON encoding/decoding
+    - Time handling (time, time.Timer, time.Ticker)
+
+PostgreSQL:
+    - Learn how to create, query and handle transaction and locks
+    - pgx lib
+
+Design/Architecture:
+    - Jos state machine (schedule, running, success, failed, skipped, waiting)
+    - Dependency resolution (must wait for job so succeed before running)
+    - Manual override (CLI/API rerun or override status)
+    - Retry Logic (retries after failure/success)
+
+Scheduler:
+    - Custom scheduler loop (query DB every minute for jobs with `status = 'scheduled' and run_at <= now()`)
+    - Check dependencies
+    - Launch job (mark as running -> success/fail -> log output)
+    - Use Go routines for parallel job runs
+
+CLI (uncertain to use or not):
+    - rerun --job <name>
+    - hold --job <name> --date tomorrow
+    - list --status failed
+    - schedule --job <name> --time "2025-07-18 15:00"
+
+Logging & Monitoring:
+    - Structure logs (PostgreSQL table job_logs)
+
+Enchancements:
+    - Web UI (REST)
+    - Notification setup
+    - Job priority queue
+    - Worker pool pattern
+    - Add a /health or /metric API call
+    - Think about logs to website
+    - Add `max concurrency` control to limit simultaneous job execution
