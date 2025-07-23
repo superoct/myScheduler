@@ -37,7 +37,7 @@ func runJob(runID int, command string) {
 
 func RunScheduledJobs() error {
 	nowTime := time.Now()
-	rows, err := DB().Query(context.Background(), `
+	rows, err := db.DB().Query(context.Background(), `
 		SELECT jr.id, j.Command
 		FROM job_runs jr
 		JOIN jobs j ON jr.job_id = j.id
@@ -61,7 +61,7 @@ func RunScheduledJobs() error {
 
 func ManualRerun(jobRunID int) error {
 	var command string
-	err := DB().QueryRow(context.Background(), `
+	err := db.DB().QueryRow(context.Background(), `
 		SELECT j.command
 		FROM job_runs jr
 		JOIN jobs j ON jr.job_id = j.id

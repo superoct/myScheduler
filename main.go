@@ -12,6 +12,7 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 
 	"scheduler/internal/api"
+	"scheduler/internal/db"
 	"scheduler/internal/scheduler"
 )
 
@@ -26,7 +27,7 @@ func main() {
 	}
 	defer pool.Close()
 
-	scheduler.InitDB(pool)
+	db.InitDB(pool)
 
 	go func() {
 		ticker := time.NewTicker(1 * time.Minute)
