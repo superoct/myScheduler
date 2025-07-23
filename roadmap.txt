@@ -2,13 +2,6 @@ My Scheduler:
 
 Golang:
     - Go concurrency (goroutines, channels)
-    - os/exec
-    - JSON encoding/decoding
-    - Time handling (time, time.Timer, time.Ticker)
-
-PostgreSQL:
-    - Learn how to create, query and handle transaction and locks
-    - pgx lib
 
 Design/Architecture:
     - Jos state machine (schedule, running, success, failed, skipped, waiting)

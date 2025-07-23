@@ -25,12 +25,11 @@ func CreateJobHandler(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request"})
 		return
 	}
-	err = jobs.CreateJob(
+	if err := jobs.CreateJob(
 		req.Name, req.Command, req.Dependencies, req.ScheduleType,
 		req.ScheduleStartTime, req.RepeatEvery, req.RepeatAmount,
 		req.ConnectionID, req.ParentID, req.VariableIDs,
-	)
-	if err != nil {
+	); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
