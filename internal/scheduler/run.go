@@ -6,12 +6,14 @@ import (
 	"os/exec"
 	"strings"
 	"time"
+
+	"scheduler/internal/db"
 )
 
 func runJob(runID int, command string) {
 	ctx := context.Background()
 	startTime := time.Now()
-	_, _ = DB().Exec(ctx, `
+	_, _ = db.DB().Exec(ctx, `
 		UPDATE job_runs SET status = 'running', started_at = $1 WHERE id = $2
 	`, startTime, runID)
 
@@ -27,7 +29,7 @@ func runJob(runID int, command string) {
 
 	fmt.Println(string(out))
 
-	_, _ = DB().Exec(ctx, `
+	_, _ = db.DB().Exec(ctx, `
 		UPDATE job_runs SET status = $1, finished_at = $2, output = $3 WHERE id = $4
 	`, status, endTime, string(out), runID)
 

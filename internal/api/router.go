@@ -10,6 +10,7 @@ func NewRouter() *gin.Engine {
 	r.POST("/schedule", ScheduleHandler)
 	r.POST("/run-now", RunNowHandler)
 	r.POST("/rerun/:id", ReRunHandler)
+	r.POST("/create-job", CreateJobHandler)
 
 	return r
 }
